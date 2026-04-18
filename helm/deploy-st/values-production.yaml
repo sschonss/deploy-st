@@ -2,9 +2,9 @@ replicaCount: 2
 
 image:
   app:
-    tag: "v0.1.0"
+    tag: "v1.0.0"
   web:
-    tag: "v0.1.0"
+    tag: "v1.0.0"
 
 ingress:
   host: production.deploy-st.local
@@ -39,3 +39,15 @@ env:
   APP_ENV: "production"
   APP_DEBUG: "false"
   LOG_LEVEL: "warning"
+
+canary:
+  enabled: true
+  steps:
+    - setWeight: 20
+    - pause: { duration: 30s }
+    - setWeight: 40
+    - pause: { duration: 30s }
+    - setWeight: 60
+    - pause: { duration: 30s }
+    - setWeight: 80
+    - pause: { duration: 30s }

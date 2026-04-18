@@ -58,3 +58,15 @@ env:
 
 secrets:
   APP_KEY: "base64:dummyKeyForStudyPurposesOnly1234="
+
+canary:
+  enabled: false
+  steps:
+    - setWeight: 20
+    - pause: { duration: 30s }
+    - setWeight: 40
+    - pause: { duration: 30s }
+    - setWeight: 60
+    - pause: { duration: 30s }
+    - setWeight: 80
+    - pause: { duration: 30s }
