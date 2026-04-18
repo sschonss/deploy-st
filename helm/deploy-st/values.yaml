@@ -1,0 +1,60 @@
+replicaCount: 1
+
+image:
+  app:
+    repository: ghcr.io/sschonss/deploy-st-app
+    tag: "latest"
+    pullPolicy: IfNotPresent
+  web:
+    repository: ghcr.io/sschonss/deploy-st-web
+    tag: "latest"
+    pullPolicy: IfNotPresent
+
+nameOverride: ""
+fullnameOverride: ""
+
+service:
+  type: ClusterIP
+  port: 80
+
+ingress:
+  enabled: true
+  className: nginx
+  host: deploy-st.local
+
+resources:
+  app:
+    requests:
+      cpu: 100m
+      memory: 128Mi
+    limits:
+      cpu: 250m
+      memory: 256Mi
+  web:
+    requests:
+      cpu: 50m
+      memory: 64Mi
+    limits:
+      cpu: 100m
+      memory: 128Mi
+
+hpa:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 5
+  targetCPUUtilizationPercentage: 70
+
+pdb:
+  enabled: false
+  minAvailable: 1
+
+env:
+  APP_NAME: "deploy-st"
+  APP_ENV: "production"
+  APP_DEBUG: "false"
+  APP_VERSION: "0.0.0-dev"
+  LOG_CHANNEL: "stderr"
+  LOG_LEVEL: "warning"
+
+secrets:
+  APP_KEY: "base64:dummyKeyForStudyPurposesOnly1234="
