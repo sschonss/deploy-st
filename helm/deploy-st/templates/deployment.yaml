@@ -30,15 +30,13 @@ spec:
             - secretRef:
                 name: {{ include "deploy-st.fullname" . }}
           livenessProbe:
-            exec:
-              command:
-                - php-fpm-healthcheck
+            tcpSocket:
+              port: php-fpm
             initialDelaySeconds: 10
             periodSeconds: 10
           readinessProbe:
-            exec:
-              command:
-                - php-fpm-healthcheck
+            tcpSocket:
+              port: php-fpm
             initialDelaySeconds: 5
             periodSeconds: 5
           resources:
