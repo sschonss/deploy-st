@@ -2,9 +2,9 @@ replicaCount: 2
 
 image:
   app:
-    tag: "v1.0.0"
+    tag: "v1.1.0"
   web:
-    tag: "v1.0.0"
+    tag: "v1.1.0"
 
 ingress:
   host: production.deploy-st.local
